@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tree-demo</title>
+    <style>
+      body {
+        font-family: Menlo, Consolas, monospace;
+        color: #444;
+      }
+      .item {
+        cursor: pointer;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      ul {
+        padding-left: 1em;
+        line-height: 1.5em;
+        list-style-type: dot;
+      }
+    </style>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <script type="text/x-template" id="item-template">
+        <li>
+            <div :class={bold:isFolder} @click="toggle" @dbclick="changeType">
+                {{model.name}}
+                <span v-if="isFolder">
+                    [{{open?'-':'+'}}]
+                </span>
+            </div>
+            <ul v-show='open' v-if="isFolder">
+                <item class="item" :model="model" v-for="model in model.children">
+                </item>
+                <li class="add" @click="addChild">+</li>
+            </ul>
+        </li>
+    </script>
+
+    <ul id="demo">
+        hello   
+    </ul>
+</body>
+</html>
