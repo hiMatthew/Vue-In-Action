@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>grid component example</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- component template -->
+    <script type="text/x-template" id="grid-template">
+        <table v-if="filteredData.length">
+            <thead>
+                <tr>
+                    <th v-for="key in columns" @click="sortBy(key)" :class="{ active: sortKey == key }">
+                        {{ key | capitalize }}
+                        <span class="arrow" :class="sortOrders[key]>0 ? 'asc' : 'dsc'"></span>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </script>
+    <!-- demo root element -->
+    <div id="demo">
+        <form action="" id="search">
+            Search <input type="text" name="query" v-model="searchQuery">
+        </form>
+        <demo-grid :data="gridData" :columns="gridColumns" :filter-key="searchQuery"></demo-grid>
+    </div>
+    
+
+    <script src="grid.js"></script>
+
+</body>
+</html>
