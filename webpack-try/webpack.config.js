@@ -5,7 +5,9 @@ var HtmlwebpackPlugin = require('html-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 module.exports = {
     devtools: "eval-source-map",
-    entry: __dirname + "/es6/main.js",
+    entry: {
+        app:__dirname + "/es6/main.js"
+    },
     output: {
         path: __dirname + "/public",
         filename: "bundle.js"
@@ -20,11 +22,11 @@ module.exports = {
                 }
             }, {
                 test: /\.less$/,
-                loader: 'style-loader!css-loader!less-loader?modules'
+                loader: 'style-loader!css-loader!less-loader'
             }, // use ! to chain loaders
             {
                 test: /\.css$/,
-                loader: 'style-loader!css-loader'
+                loader: 'style-loader!css-loader!less-loader'
             }, {
                 test: /\.(png|jpg)$/,
                 loader: 'url-loader?limit=8192'
@@ -32,7 +34,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['', '.js']
+        extensions: ['', '.js','.css','.less']
     },
     plugins: [
         new uglifyJsPlugin({
@@ -40,12 +42,13 @@ module.exports = {
             warnings: false
           }
         }),
-        new HtmlwebpackPlugin({
-          title: 'Webpack-demos',
-          filename: 'index.html'
-        }),
         new OpenBrowserPlugin({
           url: 'http://localhost:8080'
+        }), 
+        new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery",
+          "window.jQuery": "jquery"
         })
     ],
     devServer: {
