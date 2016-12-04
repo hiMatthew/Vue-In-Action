@@ -1,2 +1,3 @@
-require("./a")
-$('h1').text('Hello World');
+import "./a.less";
+import $ from 'jquery';
+$('h1').text('Hello World!');
